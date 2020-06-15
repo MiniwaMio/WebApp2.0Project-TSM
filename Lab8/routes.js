@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser');
 var eventsController = require('./controllers/eventsController.js');
-var testing1 = "1";
+var testing3 = "1";
 var testing2 = "2";
 
 var routes = function () {
