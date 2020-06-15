@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var port = 3000;
+var testingLocalChanges = "localchangesTesting";
 
 var routes = require('./routes.js');
 app.use('/', routes);
