@@ -82,5 +82,8 @@ var database = {
         settingModel.updateOne({_id = sid}, {strength = str, status = stats}, callback);
     },
     deleteSetting: function(sid, callback){
+        settingModel.deleteOne({_id = sid}, callback)
     },
-}
+};
+
+module.exports = database;
