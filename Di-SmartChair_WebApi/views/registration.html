@@ -3,28 +3,31 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DSC Log In</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>DSC Registration</title>
+    <link rel="stylesheet" href="css/registration.css">
 </head>
 
 <body>
-    <article class="login">
-        <form method="post" class="loginform">
+    <article class="register">
+        <form method="post" class="registrationform">
             <label for="username">Username</label>
             <input type="text" name="username" id="username">
             <br>
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
             <br>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+            <br>
             <input type="submit" name="submit" id="submit" value="Log In">
         </form>
     </article>
     <div>
-        <a href="registration.html">Don't have an account?</a>
+        <a href="index.html">Already have an account?</a>
     </div>
 
     <script src="./js/jquery-3.5.0.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/registration.js"></script>
     
 </body>
 
