@@ -16,6 +16,7 @@ $(document).ready(function(){
         ).done(
             function(data){
                 //console log input
+                
                 console.log(data);
             }
         ).fail(
