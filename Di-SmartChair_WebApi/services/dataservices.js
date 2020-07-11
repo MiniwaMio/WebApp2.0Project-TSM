@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
+var ObjectId = require('mongodb').ObjectID;
 var recordSchema = {};
 var recordModel;
 var userSchema = {};
@@ -30,7 +31,7 @@ var database = {
                     password : String,
                 });
                 settingSchema = schema({
-                    userid: String,
+                    userId: String,
                     status: String,
                     strength : Number,
                 });
@@ -55,13 +56,14 @@ var database = {
     getAccount: function(id, callback){
         userModel.findById(id, callback);
     },
-    addRecord: function(uid, dura,Tdate, postC){
+    addRecord: function(uid, dura,Tdate, postC, callback){
         var newRecord = new recordModel({
             userId : uid,
             duration : dura,
             date : Tdate,
             postureCount : postC,
         });
+        newRecord.save(callback);
     },
     getRecords: function(callback){
         recordModel.find({}, callback);
@@ -72,13 +74,13 @@ var database = {
             status : st,
             strength : str
         });
-        settingModel.save(callback);
+        newSetting.save(callback);
     },
     getSettings: function(uid, callback){
-        settingModel.find({userid : uid});
+        settingModel.find({userId : uid}, callback);
     },
     getSetting: function(sid, uid, callback){
-        settingModel.find({_id : sid , userid : uid}, callback);
+        settingModel.find({_id : ObjectId(sid) , userid : uid}, callback);
     },
     updateSetting: function(sid,str,stats, callback){
         settingModel.updateOne({_id : sid}, {strength : str, status : stats}, callback);

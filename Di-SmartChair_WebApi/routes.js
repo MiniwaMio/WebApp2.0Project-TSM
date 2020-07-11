@@ -47,9 +47,10 @@ var routes = function(){
     });
 
     //backend GET API
+    //working
     router.get('/api/account/:uid', function (req, res){
         var id = req.params.uid;
-        db.getAccount(uid, function(err, account){
+        db.getAccount(id, function(err, account){
             if(err){
                 res.status(500).send("Unable to find user at this moment");
             }else{
@@ -57,7 +58,7 @@ var routes = function(){
             }
         })
     });
-
+    //working but need to add required check
     router.get('/api/data/:uid', function (req, res){
         var id = req.params.uid;
         db.getRecords(function(err, data){
@@ -68,7 +69,7 @@ var routes = function(){
             }
         });
     });
-
+    //working
     router.get('/api/settings/:uid', function(req,res){
         var id = req.params.uid;
         db.getSettings(id, function(err, settings){
@@ -87,7 +88,7 @@ var routes = function(){
             if(err){
                 res.status(500).send("Unable to get this setting at this moment");
             }else{
-                res.status(200).send(settings);
+                res.status(200).send(setting);
             }
         })
     });
