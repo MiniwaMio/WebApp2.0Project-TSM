@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    align-content: center;
+    text-align: center;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login{
+    max-width: 400px;
+    height: 75px;
+    background: white;
+    margin: auto;
+    margin-top: 20%;
+    padding-top: 25px;
+}
+
+#password{
+    margin-top: 10px;
+}
