@@ -95,16 +95,27 @@ var routes = function(){
 
     //backend POST API
     //working
+    router.post('/api/login', function(req,res){
+        checkUniqueData = req.body;
+        db.findIfExisting(checkUniqueData.username, checkUniqueData.password, function(err, account){
+            if(account){
+                res.redirect('/chair');
+            }else{
+                res.status(500).send("either account don't exist or it failed");
+            }
+        })
+    })
+    //working
     router.post('/api/registration', function(req,res){
         db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
-            if(err){
-                res.status(500).send("unable to add user now");
+            if(account){
+                res.redirect('/');
             }else{
-                res.status(200).send(account);
+                res.status(500).send("unable to add user now");
             }
         });
     });
-    //working
+    //working but need to change depending
     router.post('/api/record', function(req,res){
         db.addRecord(req.body.userId, req.body.duration, req.body.date, req.body.postureCount, function(err,record){
             if(err){
@@ -114,7 +125,7 @@ var routes = function(){
             }
         });
     });
-    //working
+    //working but need to change depending
     router.post('/api/setting', function(req, res){
         db.addSetting(req.body.userId, req.body.status, req.body.strength, function(err, setting){
             if(err){

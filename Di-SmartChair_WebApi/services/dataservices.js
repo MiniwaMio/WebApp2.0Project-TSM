@@ -56,6 +56,9 @@ var database = {
     getAccount: function(id, callback){
         userModel.findById(id, callback);
     },
+    findIfExisting: function(uname, pword, callback){
+        userModel.findOne({username : uname, password : pword}, callback)
+    },
     addRecord: function(uid, dura,Tdate, postC, callback){
         var newRecord = new recordModel({
             userId : uid,
