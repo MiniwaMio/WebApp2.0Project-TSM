@@ -94,7 +94,7 @@ var routes = function(){
     });
 
     //backend POST API
-    //working
+    //working, need to include bcrypt and passport to be more secure
     router.post('/api/login', function(req,res){
         checkUniqueData = req.body;
         db.findIfExisting(checkUniqueData.username, checkUniqueData.password, function(err, account){
@@ -105,7 +105,7 @@ var routes = function(){
             }
         })
     })
-    //working
+    //working, need to include bcrypt and passport to be more secure
     router.post('/api/registration', function(req,res){
         
         db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
