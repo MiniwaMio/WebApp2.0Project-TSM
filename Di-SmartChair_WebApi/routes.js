@@ -99,7 +99,7 @@ var routes = function(){
         checkUniqueData = req.body;
         db.findIfExisting(checkUniqueData.username, checkUniqueData.password, function(err, account){
             if(account){
-                res.redirect('/chair/?userId=' + account._id);
+                res.redirect('/chair?id=' + account._id);
             }else{
                 res.status(500).send("either account don't exist or it failed");
             }
