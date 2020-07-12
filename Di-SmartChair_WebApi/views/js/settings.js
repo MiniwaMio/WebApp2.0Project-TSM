@@ -1,5 +1,3 @@
-const { addSetting } = require("../../services/dataservices");
-
 var userId = 0;
 $(document).ready(function () {
     var urlParams = new URLSearchParams(window.location.search);

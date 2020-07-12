@@ -9,12 +9,21 @@ $(document).ready(function(){
         method:"get"
     }).done(
         function(data){
-            $('#userid').text(data.userId);
-            $('#username').text(data.name);
-            $('#data').text(data.dataId);
-            $('#duration').text(data.duration);
-            $('#date').text(data.date);
-            $('#posturecount').text(data.posturecount);
+            if(data.length==0){
+                $('$dataoutput').html("<h1>There is no data</h1>")
+            }
+            else{
+                data.forEach(function(record) {
+                    $('#dataoutput').append("<li>Duration: "+record.duration+"</br>Posture Count: "+record.postureCount+"</br> Date: "+record.date+"</br>"+"</li>");
+                });
+            }
+            
+            
+            console.log(data);
+        }
+    ).fail(
+        function(err){
+            console.log(err.responseText);
         }
     );
 
