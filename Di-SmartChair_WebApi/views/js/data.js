@@ -5,7 +5,7 @@ $(document).ready(function(){
     userId = urlParams.get('id');
 
     $.ajax({
-        url: "/data/"+userId,
+        url: "/api/data/"+userId,
         method:"get"
     }).done(
         function(data){
