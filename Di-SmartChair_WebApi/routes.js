@@ -99,7 +99,7 @@ var routes = function(){
         checkUniqueData = req.body;
         db.findIfExisting(checkUniqueData.username, checkUniqueData.password, function(err, account){
             if(account){
-                res.redirect('/chair');
+                res.redirect('/chair/?userId=' + account._id);
             }else{
                 res.status(500).send("either account don't exist or it failed");
             }
@@ -107,6 +107,7 @@ var routes = function(){
     })
     //working
     router.post('/api/registration', function(req,res){
+        
         db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
             if(account){
                 res.redirect('/');
