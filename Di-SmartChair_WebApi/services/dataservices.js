@@ -80,13 +80,13 @@ var database = {
         settingModel.find({userId : uid}, callback);
     },
     getSetting: function(sid, uid, callback){
-        settingModel.find({_id : ObjectId(sid) , userid : uid}, callback);
+        settingModel.find({_id : ObjectId(sid) , userId : uid}, callback);
     },
     updateSetting: function(sid,str,stats, callback){
-        settingModel.updateOne({_id : sid}, {strength : str, status : stats}, callback);
+        settingModel.updateOne({_id : ObjectId(sid)}, {strength : str, status : stats}, callback);
     },
     deleteSetting: function(sid, callback){
-        settingModel.deleteOne({_id : sid}, callback)
+        settingModel.deleteOne({_id : ObjectId(sid)}, callback)
     },
 };
 

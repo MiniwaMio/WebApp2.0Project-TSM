@@ -80,7 +80,7 @@ var routes = function(){
             }
         })
     });
-
+    //working
     router.get('/api/setting/:uid/:sid', function(req, res){
         var uid = req.params.uid;
         var sid = req.params.sid;
@@ -94,6 +94,7 @@ var routes = function(){
     });
 
     //backend POST API
+    //working
     router.post('/api/registration', function(req,res){
         db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
             if(err){
@@ -103,7 +104,7 @@ var routes = function(){
             }
         });
     });
-    
+    //working
     router.post('/api/record', function(req,res){
         db.addRecord(req.body.userId, req.body.duration, req.body.date, req.body.postureCount, function(err,record){
             if(err){
@@ -113,7 +114,7 @@ var routes = function(){
             }
         });
     });
-
+    //working
     router.post('/api/setting', function(req, res){
         db.addSetting(req.body.userId, req.body.status, req.body.strength, function(err, setting){
             if(err){
@@ -125,7 +126,7 @@ var routes = function(){
     });
 
     //backend PUT API
-
+    //working
     router.put('/api/setting/:uid', function(req, res){
         var uid = req.params.uid;
         var settingData = req.body;
@@ -140,15 +141,15 @@ var routes = function(){
     });
 
     //backend DELETE API
-
+    //working
     router.delete('/api/setting/:sid', function(req,res){
-        var uid = req.params.uid;
+        var sid = req.params.sid;
 
-        db.deleteSetting(uid, function(err, setting){
+        db.deleteSetting(sid, function(err, setting){
             if (err) {
                 res.status(500).send("Unable to delete this setting");
             } else {
-                res.status(200).send("setting");
+                res.status(200).send(setting);
                 
             }
         })
