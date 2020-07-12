@@ -9,7 +9,7 @@ $(document).ready(function(){
         };
         $.ajax({
     
-            url: '/register',
+            url: '/api/registration',
             method: 'post',
             data: registerDetails,
         }
