@@ -46,6 +46,7 @@ var routes = function(){
         res.sendFile(__dirname + "/views/chair.html");
     });
 
+
     //backend GET API
     //working
     router.get('/api/account/:uid', function (req, res){
@@ -92,6 +93,17 @@ var routes = function(){
             }
         })
     });
+
+    router.get('/api/chair/:uid',function(req,res){
+        var uid = req.params.uid;
+        db.getAccount(uid, function(err,name){
+            if(err){
+                res.status(500).send("Unable to get this name");
+            }else{
+                res.status(200).send(name);
+            }
+        });
+    })
 
     //backend POST API
     //working, need to include bcrypt and passport to be more secure

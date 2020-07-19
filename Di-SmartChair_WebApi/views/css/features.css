@@ -1,0 +1,18 @@
+.chairplaceholder{
+background-color: dimgrey;
+
+}
+
+.settingsbox{
+background-color: dimgrey;
+
+width: 200px;
+}
+
+.spacearound{
+    justify-content: space-around;
+}
+
+.chairplaceholder img{
+    height: 500px;
+}

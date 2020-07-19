@@ -18,8 +18,8 @@
 }
 
 .bottomrow{
-    padding-left: 200px;
-    padding-right: 200px;
+    
+    justify-content: space-around;
 }
 
 .navbuttonitem p{

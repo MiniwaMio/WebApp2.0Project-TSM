@@ -91,6 +91,10 @@ var database = {
     deleteSetting: function(sid, callback){
         settingModel.deleteOne({_id : ObjectId(sid)}, callback)
     },
+
+    getName: function(uid,callback){
+        userModel
+    }
 };
 
 module.exports = database;
