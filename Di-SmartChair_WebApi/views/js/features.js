@@ -1,82 +1,120 @@
-$(document).ready(function(){
-    checkButt();
-    checkLowerBack();
-    checkUpperBack();
+var userId=0;
+var urlParams = new URLSearchParams(window.location.search);
+    userId = urlParams.get('id');
+var count = 0;
+var idlecount = 0;
+
+$(document).ready(function () {
+
+    $('.listenbutton').click(function(){
+        if($(this).hasClass('listening')){
+            postRecord();
+            $(this).html('Start Listening').toggleClass('listening');
+        }
+        else{
+            $(this).html('Stop Listening').toggleClass('listening');
+            checkSensors();
+            Test();
+            TestButton();
+        }
+
+        //Need to clear intervals
+    });
+    
 });
 
-function checkButt(){
+function checkSensors() {
     setInterval(
-        function(){
+        function () {
             $.ajax({
-                url:"http://192.168.1.195/arduino/digital/5",
-                method:"get",
-                dataType:"text",
+                url: "http://192.168.1.195/arduino/getSensorStatus",
+                method: "get",
+                dataType: "text",
             }).done(
-                function(data){
-                    if(data == "1"){
-                        console.log(data);
-                        //use DOM to show that butt is on
-                        //call another ajax to update value in database
-                    }
-                    else if(data=="0"){
-                        console.log(data);
-                        //use DOM to show that the butt is off
-                        //call another ajax to update value in database
-                    }
+                function (data) {
+
                 }
             )
-        },500
+        }, 500
     );
 }
 
-function checkLowerBack(){
+function Test() {
     setInterval(
-        function(){
+        function () {
             $.ajax({
-                //need change the last digit to the digital port
-                url:"http://192.168.1.195/arduino/digital/5",
-                method:"get",
-                dataType:"text",
+                url: "http://192.168.1.145/arduino/analog/0",
+                method: "get",
+                dataType: "text",
             }).done(
-                function(data){
-                    if(data == "1"){
-                        console.log(data);
-                        //use DOM to show that lower back is on
-                        //call another ajax to update value in database
-                    }
-                    else if(data=="0"){
-                        console.log(data);
-                        //use DOM to show that the lower back is off
-                        //call another ajax to update value in database
-                    }
+                function (data) {
+
+                    $('.test h1').text(data);
+                    var data2 = data.replace(/\D/g, '');
+                    var data2 = data2.substring(1);
+                    $('.test h2').text(data2);
                 }
             )
-        },500
+        }, 1000
     );
 }
 
-function checkUpperBack(){
+function TestButton() {
     setInterval(
-        function(){
+        function () {
             $.ajax({
-                //need change the port to the input of upper back
-                url:"http://192.168.1.195/arduino/digital/5",
-                method:"get",
-                dataType:"text",
+                url: "http://192.168.1.145/arduino/digital/4",
+                method: "get",
+                dataType: "text",
             }).done(
-                function(data){
-                    if(data == "1"){
-                        console.log(data);
-                        //use DOM to show that upper back is on
-                        //call another ajax to update value in database
+                function (data) {
+                    $('.test2 h1').text(data);
+                    var data2 = data.replace(/\D/g, '');
+                    var data2 = data2.substring(1);
+                    if (data2 == "1") {
+                        $('.test2 h2').text("Activated");
+                        idlecount = 0;
+                        count++;
+                        $('.test2 h3').text(count.toString());
                     }
-                    else if(data=="0"){
-                        console.log(data);
-                        //use DOM to show that the upperback is off
-                        //call another ajax to update value in database
+                    else {
+                        $('.test2 h2').text("Not Activated");
+                        idlecount++;
+                        if (idlecount >= 300) {
+                            idlecount = 0;
+                            $('.test2 h3').text("Chair has Gone Idle");
+                        }
+                        else {
+                            $('.test2 h3').text(idlecount.toString());
+                        }
                     }
+
                 }
             )
-        },500
+        }, 1000
     );
+}
+
+function postRecord(){
+    var recordDetails = {
+        userId: userId,
+        duration: count,
+        date: new Date(),
+        postureCount: 123,
+    };
+    
+    $.ajax({
+        url:"/api/record",
+        method: "post",
+        data: recordDetails,
+    }).done(
+        function(data){
+
+        }
+    ).fail(
+        function(err){
+            console.log(err.responseText);
+        }
+    )
+    
 }

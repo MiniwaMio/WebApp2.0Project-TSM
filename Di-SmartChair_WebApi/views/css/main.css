@@ -74,6 +74,7 @@ div.circleBehind a:hover:after
     width: 96%;
     margin-left: 2%;
     margin-right: 2%;
+    background-image: url(images/contentbackground.gif);
     background-color: pink;
 }
 
