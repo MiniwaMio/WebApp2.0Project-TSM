@@ -29,11 +29,16 @@ var database = {
                     email : String,
                     username: String,
                     password : String,
-                    token: String
+                });
+                settingSchema = schema({
+                    userId: String,
+                    status: String,
+                    strength : Number,
                 });
                 var connection = mongoose.connection;
                 recordModel = connection.model("Record", recordSchema);
                 userModel = connection.model("User", userSchema);
+                settingModel = connection.model("Setting", settingSchema);
             }else{
                 console.log(err);
                 console.log("Error connecting to Mongo DB");
@@ -51,12 +56,6 @@ var database = {
     getAccount: function(id, callback){
         userModel.findById(id, callback);
     },
-    updateToken: function (id, token, callback) {
-        userModel.findByIdAndUpdate(id, { token: token }, callback);
-    },
-    checkToken: function(token,callback) {
-        userModel.findOne({token:token},callback);
-    },
     findIfExisting: function(uname, pword, callback){
         userModel.findOne({username : uname, password : pword}, callback)
     },
@@ -72,8 +71,30 @@ var database = {
     getRecords: function(callback){
         recordModel.find({}, callback);
     },
+    addSetting: function(uid, st, str,callback){
+        var newSetting = new settingModel({
+            userid : uid,
+            status : st,
+            strength : str
+        });
+        newSetting.save(callback);
+    },
+    getSettings: function(uid, callback){
+        settingModel.find({userId : uid}, callback);
+    },
+    getSetting: function(sid, uid, callback){
+        settingModel.find({_id : ObjectId(sid) , userId : uid}, callback);
+    },
+    updateSetting: function(sid,str,stats, callback){
+        settingModel.updateOne({_id : ObjectId(sid)}, {strength : str, status : stats}, callback);
+    },
+    deleteSetting: function(sid, callback){
+        settingModel.deleteOne({_id : ObjectId(sid)}, callback)
+    },
 
-    
+    getName: function(uid,callback){
+        userModel
+    }
 };
 
 module.exports = database;
