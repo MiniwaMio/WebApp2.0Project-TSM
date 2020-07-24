@@ -27,7 +27,7 @@ function checkSensors() {
     setInterval(
         function () {
             $.ajax({
-                url: "http://192.168.1.195/arduino/getSensorStatus",
+                url: "http://192.168.1.145/arduino/getSensorStatus",
                 method: "get",
                 dataType: "text",
             }).done(
@@ -49,10 +49,10 @@ function Test() {
             }).done(
                 function (data) {
 
-                    $('.test h1').text(data);
+                    $('.strength').text(data);
                     var data2 = data.replace(/\D/g, '');
                     var data2 = data2.substring(1);
-                    $('.test h2').text(data2);
+                    $('.strength').text("CURRENT STRENGTH "+data2);
                 }
             )
         }, 1000
