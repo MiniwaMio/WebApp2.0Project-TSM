@@ -57,7 +57,7 @@ var routes = function(){
         res.sendFile(__dirname + "/views/index.html");
     });
 
-    router.get('/api/registration', function(req,res){
+    router.get('/registration', function(req,res){
         res.sendFile(__dirname + "/views/registration.html");
     });
 
