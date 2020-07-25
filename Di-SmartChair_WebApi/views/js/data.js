@@ -1,11 +1,10 @@
 //receive all fields
 var userId = 0;
 $(document).ready(function(){
-    var urlParams = new URLSearchParams(window.location.search);
-    userId = urlParams.get('id');
+    userId = sessionStorage.getItem("userId");
 
     $.ajax({
-        url: "/api/data/"+userId,
+        url: "/api/data/"+userId+ "?token=" + sessionStorage.authToken,
         method:"get"
     }).done(
         function(data){
