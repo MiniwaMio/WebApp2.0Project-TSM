@@ -41,17 +41,17 @@ var routes = function(){
     router.get('/js/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
     });
-    router.get('/api/css/*', function(req, res)  {
-        var cutUrl = req.originalUrl;
-        cutUrl = cutUrl.replace('/api/', '');
-        res.sendFile(__dirname+"/views/"+cutUrl);
-    });
+    // router.get('/api/css/*', function(req, res)  {
+    //     var cutUrl = req.originalUrl;
+    //     cutUrl = cutUrl.replace('/api/', '');
+    //     res.sendFile(__dirname+"/views/"+cutUrl);
+    // });
     
-    router.get('/api/js/*', function(req, res)  {
-        var cutUrl = req.originalUrl;
-        cutUrl = cutUrl.replace('/api/', '');
-        res.sendFile(__dirname+"/views/"+cutUrl);
-    });
+    // router.get('/api/js/*', function(req, res)  {
+    //     var cutUrl = req.originalUrl;
+    //     cutUrl = cutUrl.replace('/api/', '');
+    //     res.sendFile(__dirname+"/views/"+cutUrl);
+    // });
 
     router.get('/', function(req, res){
         res.sendFile(__dirname + "/views/index.html");
@@ -93,7 +93,7 @@ var routes = function(){
     //working but need to add required check
     router.get('/api/data/:uid', function (req, res){
         var id = req.params.uid;
-        db.getRecords(function(err, data){
+        db.getUserRecords(id, function(err, data){
             if(err){
                 res.status(500).send("Unable to get records at this moment");
             }else{
@@ -114,7 +114,6 @@ var routes = function(){
     })
 
     //backend POST API
-    //working, need to include bcrypt and passport to be more secure
     router.post('/login', function(req,res){
         var data = req.body;
         db.findIfExisting(data.username, data.password, function (err, user) {

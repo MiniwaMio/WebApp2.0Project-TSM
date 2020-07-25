@@ -18,7 +18,7 @@ var database = {
                 console.log("Connected to Mongo DB");
                 //Initialised Values
                 recordSchema = schema({
-                    userId: String,
+                    userId: schema.Types.ObjectId,
                     duration: Number,
                     date: Date,
                     postureCount : Number,
@@ -30,8 +30,8 @@ var database = {
                     token:String,
                 });
                 var connection = mongoose.connection;
-                recordModel = connection.model("Record", recordSchema);
-                userModel = connection.model("User", userSchema);
+                recordModel = connection.model("records", recordSchema);
+                userModel = connection.model("users", userSchema);
             }else{
                 console.log(err);
                 console.log("Error connecting to Mongo DB");
@@ -61,8 +61,8 @@ var database = {
         });
         newRecord.save(callback);
     },
-    getRecords: function(callback){
-        recordModel.find({}, callback);
+    getUserRecords: function(uid, callback){
+        recordModel.find({userId : ObjectId(uid)}, callback);
     },
     updateToken: function (id, token, callback) {
         userModel.findByIdAndUpdate(id, { token: token }, callback);

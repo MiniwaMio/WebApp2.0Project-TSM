@@ -9,7 +9,7 @@ $(document).ready(function(){
     }).done(
         function(data){
             if(data.length==0){
-                $('$dataoutput').html("<h1>There is no data</h1>")
+                $('#dataoutput').html("<h1>There is no data</h1>")
             }
             else{
                 data.forEach(function(record) {

@@ -18,6 +18,7 @@ $(document).ready(function(){
                 //console log input
                 
                 console.log(data);
+                window.location.href="/";
             }
         ).fail(
             function(err){
