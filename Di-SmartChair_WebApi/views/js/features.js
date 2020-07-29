@@ -27,11 +27,29 @@ function checkSensors() {
     setInterval(
         function () {
             $.ajax({
-                url: "http://192.168.1.145/arduino/getSensorStatus",
+                url: "http://192.168.1.145/arduino/posture/13",
                 method: "get",
                 dataType: "text",
             }).done(
                 function (data) {
+                    //Sample Data : 000breakSitting Duration: 0breakPosture Count: 0
+                    var dataConverted = data.replace(/\D/g, '');
+                    var sensors = dataConverted.slice(0,3); //gets 000
+                    //var durationsubstring = data.substring(26);
+                    //var duration = durationsubstring.slice(0,1)
+
+                    if(sensors == "000"){
+                        $('.notice h1').text("User is not sitting");
+                    }
+                    else if(sensors=="100"){
+                        $('.notice h1').text("User is Slouching");
+                    }
+                    else if(sensors=="110"){
+                        $('.notice h1').text("User is Slouching(Shoulder)");
+                    }
+                    else if(sensors == "101" || sensors=="111"){
+                        $('.notice h1').text("User is Sitting Straight");
+                    }
 
                 }
             )
