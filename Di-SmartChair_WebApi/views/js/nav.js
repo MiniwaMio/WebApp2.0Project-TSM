@@ -1,14 +1,13 @@
 var userId=0;
 $(document).ready(function(){
- var urlParams = new URLSearchParams(window.location.search);
- userId = urlParams.get('id');
- $('.blue').append("<a href='/chair?id="+userId+"'> CHAIR</a>")
- $('.blue').append("<a href='/data?id="+userId+"'> DATA</a>")
- $('.blue').append("<a href='/features?id="+userId+"'> FEATURES</a>")
- $('.blue').append("<a href='/feedback?id="+userId+"'> FEEDBACK</a>")
+ userId = sessionStorage.userId;
+ $('.blue').append("<a href='/api/chair?id="+userId+"&token="+ sessionStorage.authToken +"'> CHAIR</a>")
+ $('.blue').append("<a href='/api/data?id="+userId+"&token="+ sessionStorage.authToken +"'> DATA</a>")
+ $('.blue').append("<a href='/api/features?id="+userId+"&token="+ sessionStorage.authToken +"'> FEATURES</a>")
+ $('.blue').append("<a href='/api/feedback?id="+userId+"&token="+ sessionStorage.authToken +"'> FEEDBACK</a>")
 
- $('.databutton').wrap("<a href='/data?id="+userId+"'></a>");
- $('.sittingbutton').wrap("<a href='/features?id="+userId+"'></a>");
- $('.feedbackbutton').wrap("<a href='/feedback?id="+userId+"'></a>");
- $('.logoutbutton').wrap("<a href='/logout?id="+userId+"'></a>");
+ $('.databutton').wrap("<a href='/api/data?id="+userId+"&token="+ sessionStorage.authToken +"'></a>");
+ $('.sittingbutton').wrap("<a href='/api/features?id="+userId+"&token="+ sessionStorage.authToken +"'></a>");
+ $('.feedbackbutton').wrap("<a href='/api/feedback?id="+userId+"&token="+ sessionStorage.authToken +"'></a>");
+ $('.logoutbutton').wrap("<a href='/api/logout?id="+userId+"&token="+ sessionStorage.authToken +"'></a>");
 });
