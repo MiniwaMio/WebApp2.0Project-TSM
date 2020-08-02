@@ -34,7 +34,7 @@ function postRecord() {
     };
 
     $.ajax({
-        url: "/api/record",
+        url:"/api/record?token=" + sessionStorage.authToken,
         method: "post",
         data: recordDetails,
     }).done(
