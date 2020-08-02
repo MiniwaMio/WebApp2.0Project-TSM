@@ -9,7 +9,7 @@ $(document).ready(function(){
         };
         $.ajax({
     
-            url: '/api/registration',
+            url: '/registration',
             method: 'post',
             data: registerDetails,
         }
@@ -18,6 +18,7 @@ $(document).ready(function(){
                 //console log input
                 
                 console.log(data);
+                window.location.href="/";
             }
         ).fail(
             function(err){
