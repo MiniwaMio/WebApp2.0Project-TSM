@@ -5,7 +5,7 @@ $(document).ready(function(){
         var registerDetails = {
             username: $('#username').val(),
             password: $('#password').val(),
-            email: $('email').val(),
+            email: $('#email').val(),
         };
         $.ajax({
     
@@ -16,7 +16,6 @@ $(document).ready(function(){
         ).done(
             function(data){
                 //console log input
-                
                 console.log(data);
                 window.location.href="/";
             }

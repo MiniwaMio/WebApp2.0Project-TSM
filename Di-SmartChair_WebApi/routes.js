@@ -1,6 +1,8 @@
 var bodyParser = require('body-parser');
 var db = require('./services/dataservices.js');
 var crypto = require('crypto');
+var validator = require('validator');
+const e = require('express');
 
 db.connect();
 
@@ -116,7 +118,7 @@ var routes = function(){
     //backend POST API
     router.post('/login', function(req,res){
         var data = req.body;
-        db.findIfExisting(data.username, data.password, function (err, user) {
+        db.findIfExisting(data.email, data.password, function (err, user) {
             if (err) {
                 res.status(401).send("Login unsucessful. Please try again later");
             } else {
@@ -136,14 +138,51 @@ var routes = function(){
     })
     //working, need to include bcrypt and passport to be more secure
     router.post('/registration', function(req,res){
-        
-        db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
-            if(account){
-                res.redirect('/');
-            }else{
-                res.status(500).send("unable to add user now");
+        var signInData = req.body;
+        if(signInData.email == "" || signInData.username == "" || signInData.password == ""){
+            res.status(500).send("No blanks please");
+        }else{
+            var validationArr = [false, false, false];
+            var validateAll = true;
+            if(validator.isEmail(signInData.email)){
+                validationArr[0] = true;
             }
-        });
+            if(validator.isLength(signInData.username, {min : 6, max : undefined})){
+                validationArr[1] = true;
+            }
+            if(validator.isLength(signInData.password, {min : 6, max : undefined})){
+                validationArr[2] = true;
+            }
+            
+            for(var i=0; i<validationArr.length; i++){
+                console.log(validationArr[i]);
+                if(validationArr[i] == false){
+                    validateAll = false;
+                }
+            }
+            
+            if(validateAll != false){
+                db.findIfExisting(signInData.email, signInData.password, function(err, account){
+                    if(account){
+                        console.log("Exists");
+                        res.status(500).send("Account existed");
+                    }else{
+                        console.log("Doesn't Exists");
+                        db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
+                            if(account){
+                                res.status(200).send(account);
+                            }else{
+                                res.status(500).send("unable to add user now");
+                            }
+                        });
+                    }
+                });
+
+            }else{
+                res.status(500).send("Please key in according to requirements");
+            }
+        }
+
     });
     //working but need to change depending
     router.post('/api/record', function(req,res){
