@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 function login() {
     var credentials = {
-        username: $("#username").val(),
+        email: $("#email").val(),
         password: $("#password").val()
     }
     $.ajax({
