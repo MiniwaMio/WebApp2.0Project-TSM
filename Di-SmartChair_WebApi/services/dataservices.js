@@ -39,7 +39,7 @@ var database = {
         })
     },
     addAccount: function(em, un, pw, callback){
-        
+
         var newUser = new userModel({
             email : em,
             username : un,
@@ -63,7 +63,12 @@ var database = {
         newRecord.save(callback);
     },
     getUserRecords: function(uid, callback){
-        recordModel.find({userId : ObjectId(uid)}, callback);
+        //get your data (sort by date asc)
+        recordModel.find({userId : ObjectId(uid)}, callback).sort({date : 1});
+    },
+    getOthersRecord: function(uid, callback){
+        //find other's data to compare (sort by user -> date)
+        recordModel.find({userId : {$ne : ObjectId(uid)}}, callback).sort({userId : 1, date : 1});
     },
     updateToken: function (id, token, callback) {
         userModel.findByIdAndUpdate(id, { token: token }, callback);

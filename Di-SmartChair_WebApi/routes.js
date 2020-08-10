@@ -3,6 +3,7 @@ var db = require('./services/dataservices.js');
 var crypto = require('crypto');
 var validator = require('validator');
 const e = require('express');
+const { Console } = require('console');
 
 db.connect();
 
@@ -100,13 +101,25 @@ var routes = function(){
             }
         })
     });
-    //get user's record according to their current ids
-    //working as intended
+    //get user's record according to their current uids (sort by user -> date)
+    //working as intended 
     router.get('/api/data/:uid', function (req, res){
         var id = req.params.uid;
         db.getUserRecords(id, function(err, data){
             if(err){
                 res.status(500).send("Unable to get records at this moment");
+            }else{
+                res.status(200).send(data);
+            }
+        });
+    });
+
+    //get other user's data (sort by user -> date)
+    router.get('/api/data/others/:uid', function (req, res){
+        var id = req.params.uid;
+        db.getOthersRecord(id, function(err, data){
+            if(err){
+                res.status(500).send("Unable to get others records at this moment");
             }else{
                 res.status(200).send(data);
             }
@@ -124,6 +137,8 @@ var routes = function(){
             }
         });
     })
+
+    
 
     //backend POST API
     //Post for login attempts
@@ -146,7 +161,7 @@ var routes = function(){
                 }
             }
         })
-    })
+    });
     //working
     //Post for registration attempt
     router.post('/registration', function(req,res){
@@ -213,6 +228,8 @@ var routes = function(){
             }
         });
     });
+
+    //post for adding feedback into database
 
     return router;
 };
