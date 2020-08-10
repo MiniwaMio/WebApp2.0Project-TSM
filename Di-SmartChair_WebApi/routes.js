@@ -13,6 +13,7 @@ var routes = function(){
         extended: true
     }));
 
+    //validation
     router.use(function(req,res,next){
         //if it is api request, then check for valid token
         if(req.url.includes("/api") && !req.url.includes("/css/") && !req.url.includes("/js/")) {
@@ -36,6 +37,7 @@ var routes = function(){
         }
     })
 
+    //Routes to request for pages and apis
     router.get('/css/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
     });
@@ -55,33 +57,39 @@ var routes = function(){
     //     res.sendFile(__dirname+"/views/"+cutUrl);
     // });
 
+    //login
     router.get('/', function(req, res){
         res.sendFile(__dirname + "/views/index.html");
     });
 
+    //registration
     router.get('/registration', function(req,res){
         res.sendFile(__dirname + "/views/registration.html");
     });
 
+    //data pages
     router.get('/api/data', function(req, res){
         res.sendFile(__dirname + "/views/data.html");
     });
 
+    //pages that showcase the arduino features
     router.get('/api/features', function(req,res){
         res.sendFile(__dirname + "/views/features.html");
     });
     
+    //feedback page
     router.get('/api/feedback', function(req,res){
         res.sendFile(__dirname + "/views/feedback.html");
     });
 
+    //maybe removing later
     router.get('/api/chair', function(req,res){
         res.sendFile(__dirname + "/views/chair.html");
     });
 
 
     //backend GET API
-    //working
+    //get account details
     router.get('/api/account/:uid', function (req, res){
         var id = req.params.uid;
         db.getAccount(id, function(err, account){
@@ -92,7 +100,8 @@ var routes = function(){
             }
         })
     });
-    //working but need to add required check
+    //get user's record according to their current ids
+    //working as intended
     router.get('/api/data/:uid', function (req, res){
         var id = req.params.uid;
         db.getUserRecords(id, function(err, data){
@@ -104,6 +113,7 @@ var routes = function(){
         });
     });
 
+    //working
     router.get('/api/chair/:uid',function(req,res){
         var uid = req.params.uid;
         db.getAccount(uid, function(err,name){
@@ -116,6 +126,7 @@ var routes = function(){
     })
 
     //backend POST API
+    //Post for login attempts
     router.post('/login', function(req,res){
         var data = req.body;
         db.findIfExisting(data.email, data.password, function (err, user) {
@@ -136,14 +147,19 @@ var routes = function(){
             }
         })
     })
-    //working, need to include bcrypt and passport to be more secure
+    //working
+    //Post for registration attempt
     router.post('/registration', function(req,res){
         var signInData = req.body;
         if(signInData.email == "" || signInData.username == "" || signInData.password == ""){
             res.status(500).send("No blanks please");
         }else{
+            //validation for all 3 fields
             var validationArr = [false, false, false];
+            //check if any fields did not pass validation
             var validateAll = true;
+
+            //validate all 3 fields
             if(validator.isEmail(signInData.email)){
                 validationArr[0] = true;
             }
@@ -154,14 +170,16 @@ var routes = function(){
                 validationArr[2] = true;
             }
             
+            //loop through validationArr to check if any fields did not pass
             for(var i=0; i<validationArr.length; i++){
                 console.log(validationArr[i]);
                 if(validationArr[i] == false){
                     validateAll = false;
                 }
             }
-            
+            //if all validation is passed, attempt add account into db
             if(validateAll != false){
+                //check if this email is existing
                 db.findIfExisting(signInData.email, signInData.password, function(err, account){
                     if(account){
                         console.log("Exists");
@@ -185,6 +203,7 @@ var routes = function(){
 
     });
     //working but need to change depending
+    //add data into database from arduino -> wifi -> ajax -> Node -> DB
     router.post('/api/record', function(req,res){
         db.addRecord(req.body.userId, req.body.duration, req.body.date, req.body.postureCount, function(err,record){
             if(err){
