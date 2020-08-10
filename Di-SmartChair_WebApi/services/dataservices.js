@@ -38,7 +38,8 @@ var database = {
             }
         })
     },
-    addAccount: function(em, un,pw,callback){
+    addAccount: function(em, un, pw, callback){
+        
         var newUser = new userModel({
             email : em,
             username : un,
@@ -49,8 +50,8 @@ var database = {
     getAccount: function(id, callback){
         userModel.findById(id, callback);
     },
-    findIfExisting: function(uname, pword, callback){
-        userModel.findOne({username : uname, password : pword}, callback)
+    findIfExisting: function(em, pword, callback){
+        userModel.findOne({email : em, password : pword}, callback)
     },
     addRecord: function(uid, dura,Tdate, postC, callback){
         var newRecord = new recordModel({
