@@ -1,6 +1,7 @@
+const { get } = require("mongoose");
+
 //post the fields to check for login
 $(document).ready(function(){
-
     var token = sessionStorage.authToken;
 });
 

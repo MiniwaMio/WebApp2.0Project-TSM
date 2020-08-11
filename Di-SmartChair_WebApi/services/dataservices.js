@@ -5,6 +5,8 @@ var recordSchema = {};
 var recordModel;
 var userSchema = {};
 var userModel;
+var feedbackSchema = {};
+var feedbackModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -29,9 +31,15 @@ var database = {
                     password : String,
                     token:String,
                 });
+                feedbackSchema = schema({
+                    userId: schema.Types.ObjectId,
+                    date: Date,
+                    comment : String
+                });
                 var connection = mongoose.connection;
                 recordModel = connection.model("records", recordSchema);
                 userModel = connection.model("users", userSchema);
+                feedbackModel = connection.model("feedbacks", feedbackSchema);
             }else{
                 console.log(err);
                 console.log("Error connecting to Mongo DB");
@@ -51,7 +59,10 @@ var database = {
         userModel.findById(id, callback);
     },
     findIfExisting: function(em, pword, callback){
-        userModel.findOne({email : em, password : pword}, callback)
+        userModel.findOne({email : em, password : pword}, callback);
+    },
+    findIfEmailExisting : function(em, callback){
+        userModel.findOne({email : em}, callback);
     },
     addRecord: function(uid, dura,Tdate, postC, callback){
         var newRecord = new recordModel({
@@ -61,6 +72,14 @@ var database = {
             postureCount : postC,
         });
         newRecord.save(callback);
+    },
+    addFeedback: function(uid, dt, comm, callback){
+        var newFeedback = new feedbackModel({
+            userId : uid,
+            date : dt,
+            comment : comm
+        });
+        newFeedback.save(callback);
     },
     getUserRecords: function(uid, callback){
         //get your data (sort by date asc)

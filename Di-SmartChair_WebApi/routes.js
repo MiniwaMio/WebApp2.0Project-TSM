@@ -2,8 +2,6 @@ var bodyParser = require('body-parser');
 var db = require('./services/dataservices.js');
 var crypto = require('crypto');
 var validator = require('validator');
-const e = require('express');
-const { Console } = require('console');
 
 db.connect();
 
@@ -36,7 +34,7 @@ var routes = function(){
             //means proceed on with the request.
             next();
         }
-    })
+    });
 
     //Routes to request for pages and apis
     router.get('/css/*', function(req, res)  {
@@ -136,6 +134,23 @@ var routes = function(){
                 res.status(200).send(name);
             }
         });
+    });
+
+    router.get("/logout", function (req, res) {
+        var token = req.query.token;
+        if (token == undefined) {
+            res.status(401).send("No tokens are provided");
+        } else {
+            db.checkToken(token, function (err, organizer) {
+                if (err || organizer == null) {
+                    res.status(401).send("Invalid token provided");
+                } else {
+                    db.updateToken(organizer._id, "", function (err, organizer) {
+                        res.status(200).send("Logout successfully")
+                    });
+                }
+            })
+        }
     })
 
     
@@ -175,6 +190,7 @@ var routes = function(){
             var validateAll = true;
 
             //validate all 3 fields
+            console.log(signInData.email);
             if(validator.isEmail(signInData.email)){
                 validationArr[0] = true;
             }
@@ -195,7 +211,7 @@ var routes = function(){
             //if all validation is passed, attempt add account into db
             if(validateAll != false){
                 //check if this email is existing
-                db.findIfExisting(signInData.email, signInData.password, function(err, account){
+                db.findIfEmailExisting(signInData.email, function(err, account){
                     if(account){
                         console.log("Exists");
                         res.status(500).send("Account existed");
@@ -230,6 +246,16 @@ var routes = function(){
     });
 
     //post for adding feedback into database
+    router.post('/api/feedback', function(req,res){
+        var dataIn = req.body;
+        db.addFeedback(dataIn.userId, dataIn.date, dataIn.comment, function(err, results){
+            if(err){
+                res.status(500).send("unable to add feedback now");
+            }else{
+                res.status(200).send(results);
+            }
+        });
+    });
 
     return router;
 };
