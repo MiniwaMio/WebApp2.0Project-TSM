@@ -9,12 +9,14 @@ function to_start() {
 
     switch (document.getElementById('btn').value) {
         case 'Stop':
+            console.log("stopping");
             postRecord();
             window.clearInterval(tm); // stop the timer 
             document.getElementById('btn').value = 'Start';
             $('#btn').html('Start Listening');
             break;
         case 'Start':
+            console.log("starting");
             tm = window.setInterval('listen()', 1000);
             document.getElementById('btn').value = 'Stop';
             $('#btn').html('Stop Listening');
@@ -47,6 +49,7 @@ function postRecord() {
 }
 
 function listen() {
+    console.log("listening");
     $.ajax({
         url: "http://192.168.1.145/arduino/posture/13",
         method: "get",
@@ -83,6 +86,7 @@ function listen() {
         }
     ).fail(
         function () {
+            console.log("fail");
             $('.notice h1').text("Chair is not connected!")
         }
     )

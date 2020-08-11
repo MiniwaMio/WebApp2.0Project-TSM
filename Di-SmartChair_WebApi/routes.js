@@ -161,18 +161,23 @@ var routes = function(){
         var data = req.body;
         db.findIfExisting(data.email, data.password, function (err, user) {
             if (err) {
-                res.status(401).send("Login unsucessful. Please try again later");
+                res.status(500).send("Login unsucessful. Please try again later");
             } else {
-                if (user == null) {
-                    res.status(401).send("Login unsucessful. Please try again later");
-                } else {
-                    var strToHash = user.username + Date.now();
-                    var token = crypto.createHash('md5').update(strToHash).digest('hex');
-                    var uid = user._id;
-                    db.updateToken(user._id, token, function (err, user) {
-                        res.status(200).json({ 'message': 'Login successful.', 'token': token, 'userId' : uid });
-                    });                    
-                        
+                if(data.email == "" || data.password == ""
+                || data.email == undefined || data.password == undefined){
+                    res.status(400).send("Please key in your credentials");
+                }else{
+                    if (user == null) {
+                        res.status(401).send("Either username or password is incorrect, please try again.");
+                    } else {
+                        var strToHash = user.username + Date.now();
+                        var token = crypto.createHash('md5').update(strToHash).digest('hex');
+                        var uid = user._id;
+                        db.updateToken(user._id, token, function (err, user) {
+                            res.status(200).json({ 'message': 'Login successful.', 'token': token, 'userId' : uid });
+                        });                    
+                            
+                    }
                 }
             }
         })
@@ -181,8 +186,9 @@ var routes = function(){
     //Post for registration attempt
     router.post('/registration', function(req,res){
         var signInData = req.body;
-        if(signInData.email == "" || signInData.username == "" || signInData.password == ""){
-            res.status(500).send("No blanks please");
+        if(signInData.email == "" || signInData.username == "" || signInData.password == ""
+        || signInData.email == undefined || signInData.username == undefined || signInData.password == undefined){
+            res.status(401).send("No blanks please");
         }else{
             //validation for all 3 fields
             var validationArr = [false, false, false];
@@ -214,7 +220,7 @@ var routes = function(){
                 db.findIfEmailExisting(signInData.email, function(err, account){
                     if(account){
                         console.log("Exists");
-                        res.status(500).send("Account existed");
+                        res.status(401).send("Account existed");
                     }else{
                         console.log("Doesn't Exists");
                         db.addAccount(req.body.email, req.body.username, req.body.password, function(err, account){
@@ -236,25 +242,38 @@ var routes = function(){
     //working but need to change depending
     //add data into database from arduino -> wifi -> ajax -> Node -> DB
     router.post('/api/record', function(req,res){
-        db.addRecord(req.body.userId, req.body.duration, req.body.date, req.body.postureCount, function(err,record){
-            if(err){
-                res.status(500).send("unable to record now");
-            }else{
-                res.status(200).send(record);
-            }
-        });
+        var inData = req.body;
+
+        if(inData.userId == "" || inData.duration == "" || inData.date == "" || inData.postureCount == ""
+        || inData.userId == undefined || inData.duration == undefined || inData.date == undefined || inData.postureCount == undefined){
+            res.status(500).send("Something went wrong with the chair, please send for repair");
+        }else{
+            db.addRecord(inData.userId, inData.duration, inData.date, inData.postureCount, function(err,record){
+                if(err){
+                    res.status(500).send("unable to record now");
+                }else{
+                    res.status(200).send("record added successfully");
+                }
+            });
+        }
+        
     });
 
     //post for adding feedback into database
     router.post('/api/feedback', function(req,res){
         var dataIn = req.body;
-        db.addFeedback(dataIn.userId, dataIn.date, dataIn.comment, function(err, results){
-            if(err){
-                res.status(500).send("unable to add feedback now");
-            }else{
-                res.status(200).send(results);
-            }
-        });
+        if(dataIn.userId == "" || dataIn.date == "" || dataIn.comment == "" || dataIn.userId == undefined || dataIn.date == undefined || dataIn.comment == undefined){
+            res.status(401).send("Ensure all fields are input correctly. Thank you");
+        }else{
+            db.addFeedback(dataIn.userId, dataIn.date, dataIn.comment, function(err, results){
+                if(err){
+                    res.status(500).send("unable to add feedback now");
+                }else{
+                    res.status(200).send("Thank you for your feedback!");
+                }
+            });
+        }
+        
     });
 
     return router;
