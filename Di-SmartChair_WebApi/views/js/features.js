@@ -51,7 +51,7 @@ function postRecord() {
 
 function startListen() {
     $.ajax({
-        url: "http://192.168.1.145/arduino/posture/13",
+        url: "http://172.20.10.5/arduino/posture/13",
         method: "get",
         dataType: "text",
     }).done(
