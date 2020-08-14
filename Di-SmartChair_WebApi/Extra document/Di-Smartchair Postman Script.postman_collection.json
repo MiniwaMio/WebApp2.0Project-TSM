@@ -1,0 +1,807 @@
+{
+	"info": {
+		"_postman_id": "9bc1226d-d4a4-4361-8437-01f08c31c2ff",
+		"name": "Di-Smartchair Postman Script",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fail case",
+			"item": [
+				{
+					"name": "registration fail to meet validation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "email",
+								"value": "tester9@gmail.com",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "username",
+								"value": "bruh",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "password",
+								"value": "pwd123",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1200",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "tester12",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pwd1234",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hello@world",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"registration"
+							],
+							"query": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registration no input (blanks)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "email",
+								"value": "tester9@gmail.com",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "username",
+								"value": "bruh",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "password",
+								"value": "pwd123",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1200",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"registration"
+							],
+							"query": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login account doesn't exist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "day",
+								"value": "Monday",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "start",
+								"value": "1000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1200",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "web2admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "adminpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login blank credentials",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "day",
+								"value": "Monday",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "start",
+								"value": "1000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1200",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Data - Error input from chair",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "day",
+								"value": "Monday",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "start",
+								"value": "1000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "date",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "postureCount",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/record?token=a8d5e0af2cd017269a65943a2ece21dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"record"
+							],
+							"query": [
+								{
+									"key": "day",
+									"value": "Monday",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "1000",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "a8d5e0af2cd017269a65943a2ece21dc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Post : register an account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "email",
+						"value": "tester9@gmail.com",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "username",
+						"value": "bruh",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "pwd123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "day",
+							"value": "Monday",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "start",
+							"value": "1200",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "tester11",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pwd123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello@world.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registration"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Monday",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post : login attempt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "tester11",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pwd123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello@world.com",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Monday",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get : get account details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "tester11",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pwd123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello@world.com",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/account/5f1bd4aef9840e213c6b2cda?token=5fb0c6175753be1658ce2329fe8fe6b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"5f1bd4aef9840e213c6b2cda"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "5fb0c6175753be1658ce2329fe8fe6b4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post : adding collected chair data into db",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "day",
+						"value": "Monday",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "start",
+						"value": "1000",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "date",
+							"value": "09-09-2020",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "5f1bd4aef9840e213c6b2cda",
+							"type": "text"
+						},
+						{
+							"key": "duration",
+							"value": "6000",
+							"type": "text"
+						},
+						{
+							"key": "postureCount",
+							"value": "15",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/record?token=5fb0c6175753be1658ce2329fe8fe6b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"record"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Monday",
+							"disabled": true
+						},
+						{
+							"key": "start",
+							"value": "1000",
+							"disabled": true
+						},
+						{
+							"key": "token",
+							"value": "5fb0c6175753be1658ce2329fe8fe6b4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get : get other user's data (sort by user -> date)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "tester11",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pwd123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello@world.com",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/data/others/5f1bd4aef9840e213c6b2cda?token=5fb0c6175753be1658ce2329fe8fe6b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"others",
+						"5f1bd4aef9840e213c6b2cda"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "5fb0c6175753be1658ce2329fe8fe6b4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user's record according to their current uids (sort by date)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "tester11",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pwd123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello@world.com",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/data/5f1bd4aef9840e213c6b2cda?token=5fb0c6175753be1658ce2329fe8fe6b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"5f1bd4aef9840e213c6b2cda"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "5fb0c6175753be1658ce2329fe8fe6b4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post : Add feedback to db",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "day",
+						"value": "Monday",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "start",
+						"value": "1000",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "date",
+							"value": "09-09-2020",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "5f1bd4aef9840e213c6b2cda",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "not bad product",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/feedback?token=5fb0c6175753be1658ce2329fe8fe6b4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"feedback"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Monday",
+							"disabled": true
+						},
+						{
+							"key": "start",
+							"value": "1000",
+							"disabled": true
+						},
+						{
+							"key": "token",
+							"value": "5fb0c6175753be1658ce2329fe8fe6b4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
